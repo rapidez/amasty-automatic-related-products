@@ -1,6 +1,6 @@
 <?php
 
-namespace Rapidez\AmastyMostViewed\Models\Scopes;
+namespace Rapidez\AutomaticRelatedProducts\Models\Scopes;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;

@@ -15,7 +15,7 @@ php artisan vendor:publish --provider="Rapidez\Core\RapidezServiceProvider" --ta
 
 You can publish the views of this module with:
 ```
-php artisan vendor:publish --provider="Rapidez\AmastyMostViewed\AmastyMostViewedServiceProvider" --tag=views
+php artisan vendor:publish --provider="Rapidez\AmastyMostViewed\AmastyAutomaticRelatedProductsServiceProvider" --tag=views
 ```
 
 Add this Vue component to your `app.js`.

@@ -1,6 +1,6 @@
 @props(['product'])
 
-<graphql v-cloak query='@include('amastymostviewed::queries.bundles', ['product_id' => $product->id])'>
+<graphql v-cloak query='@include('amastyrelatedproducts::queries.bundles', ['product_id' => $product->id])'>
 	<div slot-scope="{ data }" v-if="data">
 		<div v-for="(bundle, index) in data.amMostviewedBundlePacks.items">
 			<bundles :products="bundle.items" :main_product="{{json_encode($product)}}">

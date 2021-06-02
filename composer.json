@@ -1,5 +1,5 @@
 {
-    "name": "rapidez/amasty-most-viewed",
+    "name": "rapidez/amasty-automatic-related-products",
     "authors": [
         {
             "name": "Bob Wezelman",
@@ -11,7 +11,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Rapidez\\AmastyMostViewed\\": "src"
+            "Rapidez\\AutomaticRelatedProducts\\": "src"
         }
     },
     "config": {
@@ -20,7 +20,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Rapidez\\AmastyMostViewed\\AmastyMostViewedServiceProvider"
+                "Rapidez\\AutomaticRelatedProducts\\AmastyAutomaticRelatedProductsServiceProvider"
             ]
         }
     }

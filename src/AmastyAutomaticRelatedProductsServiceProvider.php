@@ -1,14 +1,13 @@
 <?php
 
-namespace Rapidez\AmastyMostViewed;
+namespace Rapidez\AutomaticRelatedProducts;
 
 use Illuminate\Support\ServiceProvider;
-use Rapidez\AmastyMostViewed\Models\Scopes\RelatedProductsScope;
-use Rapidez\AmastyMostViewed\Models\Scopes\BundlesScope;
+use Rapidez\AutomaticRelatedProducts\Models\Scopes\RelatedProductsScope;
 use TorMorten\Eventy\Facades\Eventy;
 use Rapidez\Core\Casts\CommaSeparatedToArray;
 
-class AmastyMostViewedServiceProvider extends ServiceProvider
+class AmastyAutomaticRelatedProductsServiceProvider extends ServiceProvider
 {
     public function boot()
     {
@@ -28,10 +27,10 @@ class AmastyMostViewedServiceProvider extends ServiceProvider
 
     public function registerViews() : self
     {
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'amastymostviewed');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'amastyrelatedproducts');
 
         $this->publishes([
-            __DIR__.'/../resources/views' => resource_path('views/vendor/rapidez/amasty-mostviewed'),
+            __DIR__.'/../resources/views' => resource_path('views/vendor/rapidez/amastyrelatedproducts'),
         ], 'views');
         return $this;
     }
