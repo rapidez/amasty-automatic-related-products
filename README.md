@@ -1,6 +1,6 @@
 # Amasty Automatic Related Products
 
-This plugin requires the [Amasty Automatic Related Products](https://amasty.com/automatic-related-products-for-magento-2.html) module installed and configured within your Magento2 installation.
+This plugin requires the [Amasty Automatic Related Products](https://amasty.com/automatic-related-products-for-magento-2.html) and the amasty/customers-also-viewed-graphql module installed and configured within your Magento2 installation.
 
 ## Installation
 
