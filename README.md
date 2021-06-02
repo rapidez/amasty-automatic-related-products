@@ -20,17 +20,17 @@ php artisan vendor:publish --provider="Rapidez\AmastyMostViewed\AmastyAutomaticR
 
 Add this Vue component to your `app.js`.
 ```
-Vue.component('bundles', require('Vendor/rapidez/amasty-most-viewed/resources/js/components/amastybundles.vue').default)
+Vue.component('bundles', require('Vendor/rapidez/amasty-automatic-related-products/resources/js/components/amastybundles.vue').default)
 ```
 
 ## Usage
 
 This module has 2 blade components for each related product rules and product bundles. You can include them like this in `resources/views/vendor/rapidez/product/overview.blade.php`
 ```
-<x-amastymostviewed::relatedproducts :related_ids="$product->amasty_related_ids" />
+<x-amastyrelatedproducts::relatedproducts :related_ids="$product->amasty_related_ids" />
 ```
 
 ```
-<x-amastymostviewed::productbundles :product="$product" />
+<x-amastyrelatedproducts::productbundles :product="$product" />
 ```
 
