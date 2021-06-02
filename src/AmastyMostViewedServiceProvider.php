@@ -18,16 +18,14 @@ class AmastyMostViewedServiceProvider extends ServiceProvider
 
     public function addScopes() : self
     {
-
-       Eventy::addFilter('product.scopes', fn ($scopes) => array_merge($scopes, [
-                                                    RelatedProductsScope::class
-                                                ]));
                                     
+        Eventy::addFilter('product.scopes', fn ($scopes) => array_merge($scopes ?: [], [RelatedProductsScope::class]));
 
-       Eventy::addFilter('product.casts', fn ($casts) => !is_string($casts) ? array_merge($casts, ['amasty_bundles' => 'object']) : array_merge([], ['amasty_bundles' => 'object']));
+        Eventy::addFilter('product.casts', fn($casts) => array_merge($casts ?: [], ['amasty_bundles' => 'object']))
 
         return $this;
     }
+    
     public function registerViews() : self
     {
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'amastymostviewed');
