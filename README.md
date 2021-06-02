@@ -5,7 +5,7 @@ This plugin requires the [Amasty Automatic Related Products](https://amasty.com/
 ## Installation
 
 ```
-rapidez/amasty-most-viewed
+composer require rapidez/amasty-most-viewed
 ```
 
 If you haven't published the Rapidez views yet, you can publish them with:
