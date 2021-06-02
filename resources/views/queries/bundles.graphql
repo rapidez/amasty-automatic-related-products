@@ -1,0 +1,51 @@
+{
+    amMostviewedBundlePacks (productId: {{$product_id}}) {
+        main_product {
+            sku
+            __typename
+            id
+            name
+            price_range {
+              maximum_price {
+                regular_price {
+                  value
+                }
+              }
+            }
+        },
+        items {
+            block_title,
+            discount_type,
+            discount_amount,
+            apply_for_parent,
+            cart_message,
+            items {
+                product {
+                    sku
+                    __typename
+                    id
+                    name
+                    thumbnail {
+                        url
+                    },
+                    price_range {
+                        maximum_price {
+                            regular_price {
+                              currency,
+                              value
+                            }
+                        },
+                        minimum_price {
+                            regular_price {
+                              currency,
+                              value
+                            }
+                        }
+                    }
+                },
+                qty,
+                discount_amount
+            }
+        }
+    }
+}

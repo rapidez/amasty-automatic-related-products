@@ -1,0 +1,27 @@
+{
+    "name": "rapidez/amasty-most-viewed",
+    "authors": [
+        {
+            "name": "Bob Wezelman",
+            "email": "bob.wezelman@hotmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.4|^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Rapidez\\AmastyMostViewed\\": "src"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Rapidez\\AmastyMostViewed\\AmastyMostViewedServiceProvider"
+            ]
+        }
+    }
+}
