@@ -1,0 +1,1 @@
+# Amasty Automatic Related Products
