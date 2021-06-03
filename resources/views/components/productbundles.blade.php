@@ -45,7 +45,7 @@
                     </div>
 
                     <div class="flex flex-row overflow-x-scroll">
-                        <div class="w-1/3 border border-gray-200 hover:shadow" v-for="(product, index) in bundle.items" :key="index">
+                        <div class="sm:min-w-1/2 md:min-w-1/3 border border-gray-200 hover:shadow" v-for="(product, index) in bundle.items" :key="index">
                             <div class="px-1 my-1">
                                 <div class="w-full bg-white rounded group relative">
                                     <div class="block">
