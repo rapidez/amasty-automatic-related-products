@@ -25,6 +25,7 @@
                     __typename
                     id
                     name
+                    canonical_url
                     thumbnail {
                         url
                     },

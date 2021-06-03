@@ -55,7 +55,9 @@
 
                                         <div class="px-2">
                                             <div class="hyphens">
-                                                @{{ product.product.name }}
+                                                <a :href="product.product.canonical_url">
+                                                    @{{ product.product.name }}
+                                                </a>
                                             </div>
                                             <p class="line-through">
                                                 @{{ product.product.price_range.maximum_price.regular_price.value | price }}
