@@ -1,7 +1,7 @@
 <script>
 	import GetCart from 'Vendor/rapidez/core/resources/js/components/Cart/mixins/GetCart.js'
 	export default {
-		props: ['products', 'main_product'],
+		props: ['products', 'main_product', 'bundle'],
 		name: 'bundles',
 		mixins: [GetCart],
 		data: () => ({
@@ -10,13 +10,14 @@
 		}),
 		render() {
 			return this.$scopedSlots.default({
-				discount_amount: this.discount_amount,
-				changeSelected: this.changeSelected,
-				price: this.price,
-				addToCart: this.addToCart,
-				productBoxes: this.productBoxes,
-				options: this.options,
-				main_product: this.main_product
+                discount_amount: this.discount_amount,
+                changeSelected: this.changeSelected,
+                price: this.price,
+                addToCart: this.addToCart,
+                productBoxes: this.productBoxes,
+                options: this.options,
+                main_product: this.main_product,
+                percentage_discount: this.percentage_discount
 			});
 		},
 		created() {
@@ -62,11 +63,17 @@
 		computed: {
 			price: function() {
 				let price = 0;
+
 				Object.entries(this.productBoxes).forEach(([key, val]) => {
-					if(val) {
+					if(val && this.bundle.discount_type === 0) {
 						price += (this.products[key].product.price_range.maximum_price.regular_price.value - this.products[key].discount_amount)
-					}
+					} else if(val && this.bundle.discount_type === 1) {
+                        price += this.products[key].product.price_range.maximum_price.regular_price.value
+                    }
 				})
+                if(this.bundle.discount_type) {
+                    price = price * (1 - (this.bundle.discount_amount / 100))
+                }
 
 				return price + parseFloat(this.main_product.price)
 			},
@@ -80,6 +87,14 @@
 
 				return amount
 			},
+            percentage_discount: function () {
+                let discount = 0
+                Object.entries(this.productBoxes).forEach(([key, val]) => {
+                    discount += this.products[key].product.price_range.maximum_price.regular_price.value
+                })
+
+                return discount * (this.bundle.discount_amount / 100)
+            },
 			productOptions: function () {
 				let options = []
 				Object.entries(this.options).forEach(([key, val]) => {

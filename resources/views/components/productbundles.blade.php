@@ -3,8 +3,8 @@
 <graphql v-cloak query='@include('amastyrelatedproducts::queries.bundles', ['product_id' => $product->id])'>
 	<div slot-scope="{ data }" v-if="data">
 		<div v-for="(bundle, index) in data.amMostviewedBundlePacks.items">
-			<bundles :products="bundle.items" :main_product="{{json_encode($product)}}">
-				<div class="flex" slot-scope="{ price, discount_amount, changeSelected,productBoxes, addToCart, options, main_product }">
+			<bundles :bundle="bundle" :products="bundle.items" :main_product="{{json_encode($product)}}">
+				<div class="flex" slot-scope="{ price, discount_amount, changeSelected,productBoxes, addToCart, options, main_product, percentage_discount }">
 					<div class="w-1/3" v-if="index == 0 && data.amMostviewedBundlePacks.main_product">
 						<div class="px-1 my-1">
 							<div class="w-full bg-white rounded hover:shadow group relative">
@@ -81,9 +81,12 @@
                                             @{{ price | price }}
                                         </span>
                                         <div class="justify-self-end mb-1">
-                                            <span>
+                                            <span v-if="!bundle.discount_type">
                                                 @lang('You\'re saving')
                                                 @{{ discount_amount | price }}
+                                            </span>
+                                            <span v-if="bundle.discount_type">
+                                                @{{ percentage_discount | price}}
                                             </span>
                                             <button
                                                 class="inline-block font-semibold py-2 px-4 border rounded disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-75 bg-primary border-primary text-white"
