@@ -1,11 +1,11 @@
 # Amasty Automatic Related Products
 
-This plugin requires the [Amasty Automatic Related Products](https://amasty.com/automatic-related-products-for-magento-2.html) and the amasty/customers-also-viewed-graphql module installed and configured within your Magento2 installation.
+This plugin requires the [Amasty Automatic Related Products](https://amasty.com/automatic-related-products-for-magento-2.html) and the `amasty/customers-also-viewed-graphql` module installed and configured within your Magento 2 installation.
 
 ## Installation
 
 ```
-composer require rapidez/amasty-most-viewed
+composer require rapidez/amasty-automatic-related-products
 ```
 
 If you haven't published the Rapidez views yet, you can publish them with:
@@ -15,21 +15,24 @@ php artisan vendor:publish --provider="Rapidez\Core\RapidezServiceProvider" --ta
 
 You can publish the views of this module with:
 ```
-php artisan vendor:publish --provider="Rapidez\AmastyMostViewed\AmastyAutomaticRelatedProductsServiceProvider" --tag=views
+php artisan vendor:publish --provider="Rapidez\AmastyAutomaticRelatedProducts\AmastyAutomaticRelatedProductsServiceProvider" --tag=views
 ```
 
 Add this Vue component to your `app.js`.
 ```
-Vue.component('bundles', require('Vendor/rapidez/amasty-automatic-related-products/resources/js/components/amastybundles.vue').default)
+Vue.component('amastybundles', require('Vendor/rapidez/amasty-automatic-related-products/resources/js/components/amastybundles.vue').default)
 ```
 
 ## Usage
 
-This module has 2 blade components for each related product rules and product bundles. You can include them like this in `resources/views/vendor/rapidez/product/overview.blade.php`
+This module has 2 Blade components for each related product rules and product bundles. You can include them in `resources/views/vendor/rapidez/product/overview.blade.php`
+
+### Related products
 ```
 <x-amastyrelatedproducts::relatedproducts :related_ids="$product->amasty_related_ids" />
 ```
 
+### Bundles
 ```
 <x-amastyrelatedproducts::productbundles :product="$product" />
 ```

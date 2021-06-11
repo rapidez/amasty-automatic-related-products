@@ -1,9 +1,9 @@
 <?php
 
-namespace Rapidez\AutomaticRelatedProducts;
+namespace Rapidez\AmastyAutomaticRelatedProducts;
 
 use Illuminate\Support\ServiceProvider;
-use Rapidez\AutomaticRelatedProducts\Models\Scopes\RelatedProductsScope;
+use Rapidez\AmastyAutomaticRelatedProducts\Models\Scopes\RelatedProductsScope;
 use TorMorten\Eventy\Facades\Eventy;
 use Rapidez\Core\Casts\CommaSeparatedToArray;
 
@@ -11,15 +11,14 @@ class AmastyAutomaticRelatedProductsServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        $this->addScopes()
+        $this
+            ->addScopes()
             ->registerViews();
     }
 
     public function addScopes() : self
     {
-                                    
         Eventy::addFilter('product.scopes', fn ($scopes) => array_merge($scopes ?: [], [RelatedProductsScope::class]));
-
         Eventy::addFilter('product.casts', fn($casts) => array_merge($casts ?: [], ['amasty_bundles' => 'object']));
 
         return $this;

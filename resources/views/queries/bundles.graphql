@@ -1,18 +1,5 @@
 {
     amMostviewedBundlePacks (productId: {{$product_id}}) {
-        main_product {
-            sku
-            __typename
-            id
-            name
-            price_range {
-              maximum_price {
-                regular_price {
-                  value
-                }
-              }
-            }
-        },
         items {
             block_title,
             discount_type,
@@ -32,14 +19,8 @@
                     price_range {
                         maximum_price {
                             regular_price {
-                              currency,
-                              value
-                            }
-                        },
-                        minimum_price {
-                            regular_price {
-                              currency,
-                              value
+                                currency,
+                                value
                             }
                         }
                     }

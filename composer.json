@@ -11,7 +11,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Rapidez\\AutomaticRelatedProducts\\": "src"
+            "Rapidez\\AmastyAutomaticRelatedProducts\\": "src"
         }
     },
     "config": {
@@ -20,7 +20,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Rapidez\\AutomaticRelatedProducts\\AmastyAutomaticRelatedProductsServiceProvider"
+                "Rapidez\\AmastyAutomaticRelatedProducts\\AmastyAutomaticRelatedProductsServiceProvider"
             ]
         }
     }
