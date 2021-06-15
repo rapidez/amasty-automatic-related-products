@@ -39,5 +39,5 @@ This module has 2 Blade components for each related product rules and product bu
 
 ## TODO
 
-- Notificactions
+- Notifications
 - Bundles with configurable products
