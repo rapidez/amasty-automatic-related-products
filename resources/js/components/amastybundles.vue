@@ -63,26 +63,37 @@
             mainProductPrice: () => parseFloat(config.product.price),
 
             bundlePrice: function() {
-                let price = 0;
+                let price = 0
+                // This options is not available through GraphQL,
+                // until it's implemented by Amasty we use 1.
+                let apply_condition = 1
+                let conditionsAreNotMet = apply_condition
+                    && this.selectedProducts.length != Object.values(this.selectedProducts).filter(Boolean).length
 
                 if (!Object.values(this.selectedProducts).filter(Boolean).length) {
                     return this.mainProductPrice
                 }
 
-                price += this.bundle.apply_for_parent ? (
-                    this.bundle.discount_type
+                if (!this.bundle.apply_for_parent || conditionsAreNotMet) {
+                    price += this.mainProductPrice
+                } else {
+                    price += this.bundle.discount_type
                         ? this.mainProductPrice * this.discountMultiplier(this.bundle.discount_amount)
                         : this.mainProductPrice - this.bundle.discount_amount
-                ) : this.mainProductPrice
+                }
 
                 Object.entries(this.selectedProducts).forEach(([itemKey, itemSelected]) => {
                     if (itemSelected) {
                         let productPrice = this.bundle.items[itemKey].product.price_range.maximum_price.regular_price.value
                         let itemDiscount = this.bundle.items[itemKey].discount_amount ?? this.bundle.discount_amount
 
-                        price += this.bundle.discount_type
-                            ? productPrice * this.discountMultiplier(itemDiscount)
-                            : productPrice - itemDiscount
+                        if (conditionsAreNotMet) {
+                            price += productPrice
+                        } else {
+                            price += this.bundle.discount_type
+                                ? productPrice * this.discountMultiplier(itemDiscount)
+                                : productPrice - itemDiscount
+                        }
                     }
                 })
 
