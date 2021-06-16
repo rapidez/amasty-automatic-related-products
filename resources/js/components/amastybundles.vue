@@ -42,12 +42,20 @@
                     }
                 })
 
-                await this.magentoCart('post', 'items', {
+                let response = await this.magentoCart('post', 'items', {
                     cartItem: {
                         sku: config.product.sku,
                         qty: 1,
                         quote_id: localStorage.mask,
                         product_option: this.productOptions
+                    }
+                })
+
+                // Just a workaround to make sure all calculations are triggered.
+                await this.magentoCart('put', 'items/' + response.data.item_id, {
+                    cartItem: {
+                        quote_id: localStorage.mask,
+                        qty: response.data.qty
                     }
                 })
 
