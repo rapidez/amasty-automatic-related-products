@@ -4,7 +4,7 @@
     <div slot-scope="{ data }" v-if="data">
         <div v-for="bundle in data.amMostviewedBundlePacks.items">
             <amastybundles :bundle="bundle">
-                <div class="mb-3" slot-scope="{ bundlePrice, bundleDiscountAmount, bundleDiscountPercentage, selectedProducts, addToCart, options }">
+                <div class="mb-3" slot-scope="{ bundlePrice, bundleDiscountAmount, selectedProducts, addToCart, options }">
                     <div class="mb-3 font-bold text-lg">@{{ bundle.block_title }}</div>
                     <form class="flex flex-col sm:flex-row" v-on:submit.prevent="addToCart">
                         <x-amastyrelatedproducts::productbundle-item
@@ -74,14 +74,9 @@
                             <div class="font-extrabold text-2xl mb-3 sm:mt-16">
                                 @{{ bundlePrice | price }}
                             </div>
-                            <div class="text-gray-700" v-if="(!bundle.discount_type && bundleDiscountAmount) || (bundle.discount_type && bundleDiscountPercentage)">
+                            <div class="text-gray-700" v-if="bundleDiscountAmount">
                                 @lang('You\'re saving')
-                                <span v-if="!bundle.discount_type">
-                                    @{{ bundleDiscountAmount | price }}
-                                </span>
-                                <span v-if="bundle.discount_type">
-                                    @{{ bundleDiscountPercentage }}%
-                                </span>
+                                @{{ bundleDiscountAmount | price }}
                             </div>
                             <x-rapidez::button type="submit" class="flex items-center mx-auto mt-3">
                                 <svg v-if="$root.loading" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="spinner" class="w-5 h-5 animate-spin mr-1" role="img" viewBox="0 0 512 512"><path fill="currentColor" d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z"/></svg>

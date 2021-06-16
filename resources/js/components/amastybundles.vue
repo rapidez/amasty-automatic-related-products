@@ -14,7 +14,6 @@
             return this.$scopedSlots.default({
                 bundlePrice: this.bundlePrice,
                 bundleDiscountAmount: this.bundleDiscountAmount,
-                bundleDiscountPercentage: this.bundleDiscountPercentage,
 
                 selectedProducts: this.selectedProducts,
                 addToCart: this.addToCart,
@@ -23,9 +22,7 @@
         },
 
         created() {
-            Object.keys(this.bundle.items).forEach(([key, val]) => {
-                this.selectedProducts.push(true)
-            })
+            Object.keys(this.bundle.items).forEach(() => this.selectedProducts.push(true))
         },
 
         methods: {
@@ -55,53 +52,67 @@
                 })
 
                 await this.refreshCart()
+            },
+
+            discountMultiplier(percentage) {
+                return (1 - (percentage / 100))
             }
         },
 
         computed: {
+            mainProductPrice: () => parseFloat(config.product.price),
+
             bundlePrice: function() {
                 let price = 0;
 
-                Object.entries(this.selectedProducts).forEach(([key, val]) => {
-                    if (val && this.bundle.discount_type === 0) {
-                        price += (this.bundle.items[key].product.price_range.maximum_price.regular_price.value - this.bundle.items[key].discount_amount)
-                    } else if (val && this.bundle.discount_type === 1) {
-                        price += this.bundle.items[key].product.price_range.maximum_price.regular_price.value
-                    }
-                })
-
-                if (this.bundle.discount_type) {
-                    price = price * (1 - (this.bundle.discount_amount / 100))
+                if (!Object.values(this.selectedProducts).filter(Boolean).length) {
+                    return this.mainProductPrice
                 }
 
-                return price + parseFloat(config.product.price)
-            },
-            bundleDiscountAmount: function() {
-                let amount = 0;
-                Object.entries(this.selectedProducts).forEach(([key, val]) => {
-                    if(val) {
-                        amount += this.bundle.items[key].discount_amount
+                price += this.bundle.apply_for_parent ? (
+                    this.bundle.discount_type
+                        ? this.mainProductPrice * this.discountMultiplier(this.bundle.discount_amount)
+                        : this.mainProductPrice - this.bundle.discount_amount
+                ) : this.mainProductPrice
+
+                Object.entries(this.selectedProducts).forEach(([itemKey, itemSelected]) => {
+                    if (itemSelected) {
+                        let productPrice = this.bundle.items[itemKey].product.price_range.maximum_price.regular_price.value
+                        let itemDiscount = this.bundle.items[itemKey].discount_amount ?? this.bundle.discount_amount
+
+                        price += this.bundle.discount_type
+                            ? productPrice * this.discountMultiplier(itemDiscount)
+                            : productPrice - itemDiscount
                     }
                 })
 
-                return amount
+                return price
             },
-            bundleDiscountPercentage: function () {
-                let discount = 0
-                Object.entries(this.selectedProducts).forEach(([key, val]) => {
-                    discount += this.bundle.items[key].product.price_range.maximum_price.regular_price.value
+
+            bundleDiscountAmount: function() {
+                let productPricesSummed = this.mainProductPrice
+
+                Object.entries(this.selectedProducts).forEach(([itemKey, itemSelected]) => {
+                    if (itemSelected) {
+                        let productPrice = this.bundle.items[itemKey].product.price_range.maximum_price.regular_price.value
+
+                        productPricesSummed += productPrice
+                    }
                 })
 
-                return discount * (this.bundle.discount_amount / 100)
+                return Math.abs(this.bundlePrice - productPricesSummed)
             },
+
             productOptions: function () {
                 let options = []
+
                 Object.entries(this.options).forEach(([key, val]) => {
                     options.push({
                         option_id: key,
                         option_value: val,
-                    });
-                });
+                    })
+                })
+
                 return {
                     extension_attributes: {
                         configurable_item_options: options
