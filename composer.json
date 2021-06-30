@@ -1,9 +1,21 @@
 {
     "name": "rapidez/amasty-automatic-related-products",
+    "description": "Rapidez Amasty Automatic Related Products",
+    "keywords": [
+        "rapidez"
+    ],
+    "homepage": "https://rapidez.io",
+    "license": "GPL-3.0",
     "authors": [
         {
             "name": "Bob Wezelman",
             "email": "bob.wezelman@hotmail.com"
+        },
+        {
+            "name": "Roy Duineveld",
+            "email": "royduineveld@gmail.com",
+            "homepage": "https://royduineveld.nl",
+            "role": "Developer"
         }
     ],
     "require": {
