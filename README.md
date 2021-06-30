@@ -42,3 +42,7 @@ This module has 2 Blade components for each related product rules and product bu
 - Notifications
 - Bundles with configurable products
 - Use the `apply_condition` option when it's available through GraphQL
+
+## License
+
+GNU General Public License v3. Please see [License File](LICENSE) for more information.
