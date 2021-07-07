@@ -19,7 +19,9 @@ class AmastyAutomaticRelatedProductsServiceProvider extends ServiceProvider
     public function addScopes() : self
     {
         Eventy::addFilter('product.scopes', fn ($scopes) => array_merge($scopes ?: [], [RelatedProductsScope::class]));
-        Eventy::addFilter('product.casts', fn($casts) => array_merge($casts ?: [], ['amasty_bundles' => 'object']));
+        Eventy::addFilter('product.casts', fn($casts) => array_merge($casts ?: [], [
+            'amasty_related_ids' => CommaSeparatedToArray::class,
+        ]));
 
         return $this;
     }
