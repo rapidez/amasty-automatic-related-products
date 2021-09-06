@@ -31,7 +31,7 @@ class AmastyAutomaticRelatedProductsServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'amastyrelatedproducts');
 
         $this->publishes([
-            __DIR__.'/../resources/views' => resource_path('views/vendor/rapidez/amastyrelatedproducts'),
+            __DIR__.'/../resources/views' => resource_path('views/vendor/amastyrelatedproducts'),
         ], 'views');
 
         return $this;
