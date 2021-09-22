@@ -1,5 +1,30 @@
-{
-    amMostviewedBundlePacks (productId: {{$product_id}}) {
+query bundles ($productId: Int!) {
+    amMostviewedBundlePacks (productId: $productId) {
+        main_product {
+            sku
+            name
+            thumbnail {
+                url
+            },
+            price_range {
+                maximum_price {
+                    regular_price {
+                        currency,
+                        value
+                    }
+                }
+            }
+            ... on ConfigurableProduct {
+                configurable_options {
+                    attribute_id_v2
+                    label
+                    values {
+                        value_index
+                        label
+                    }
+                }
+            }
+        }
         items {
             block_title,
             discount_type,

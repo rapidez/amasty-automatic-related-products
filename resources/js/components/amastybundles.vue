@@ -3,7 +3,7 @@
     export default {
         mixins: [GetCart],
 
-        props: ['bundle'],
+        props: ['mainProduct', 'bundle'],
 
         data: () => ({
             selectedProducts: [],
@@ -44,7 +44,7 @@
 
                 let response = await this.magentoCart('post', 'items', {
                     cartItem: {
-                        sku: config.product.sku,
+                        sku: this.mainProduct.sku,
                         qty: 1,
                         quote_id: localStorage.mask,
                         product_option: this.productOptions
@@ -68,7 +68,9 @@
         },
 
         computed: {
-            mainProductPrice: () => parseFloat(config.product.price),
+            mainProductPrice: function () {
+                return parseFloat(this.mainProduct.price_range.maximum_price.regular_price.value)
+            },
 
             bundlePrice: function() {
                 let price = 0

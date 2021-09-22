@@ -1,51 +1,47 @@
-@props(['product'])
+@props(['productId'])
 
-<graphql v-cloak query='@include('amastyrelatedproducts::queries.bundles', ['product_id' => $product->id])'>
+<graphql v-cloak query="@include('amastyrelatedproducts::queries.bundles')" :variables="{ productId: {{ $productId }} }">
     <div slot-scope="{ data }" v-if="data">
         <div v-for="bundle in data.amMostviewedBundlePacks.items">
-            <amastybundles :bundle="bundle">
+            <amastybundles :main-product="data.amMostviewedBundlePacks.main_product" :bundle="bundle">
                 <div class="mb-3" slot-scope="{ bundlePrice, bundleDiscountAmount, selectedProducts, addToCart, options }">
                     <div class="mb-3 font-bold text-lg">@{{ bundle.block_title }}</div>
                     <form class="flex flex-col sm:flex-row" v-on:submit.prevent="addToCart">
                         <x-amastyrelatedproducts::productbundle-item
-                            :name="$product->name"
-                            :price="$product->formatted_price"
+                            :name="'@{{ data.amMostviewedBundlePacks.main_product.name }}'"
+                            :price="'@{{ data.amMostviewedBundlePacks.main_product.price_range.maximum_price.regular_price.value | price }}'"
                             :firstProduct="true"
                         >
                             <x-slot name="image">
-                                @if(!empty($product->images))
-                                    <img
-                                        src="/storage/resizes/200/catalog/product{{ $product->images[0] }}"
-                                        class="object-contain h-40 w-full"
-                                        alt="{{ $product->name }}"
-                                        loading="lazy"
-                                    />
-                                @else
-                                    <x-rapidez::no-image class="h-40"/>
-                                @endif
+                                <img
+                                    v-if="data.amMostviewedBundlePacks.main_product.thumbnail.url"
+                                    :src="'/storage/resizes/200'+data.amMostviewedBundlePacks.main_product.thumbnail.url.replace(config.magento_url+'/media', '')"
+                                    class="object-contain h-40 w-full"
+                                    :alt="data.amMostviewedBundlePacks.main_product.name"
+                                    loading="lazy"
+                                />
+                                <x-rapidez::no-image v-else class="h-40"/>
                             </x-slot>
 
-
-                            @if($product->super_attributes)
-                                <div class="mt-3">
-                                    @foreach($product->super_attributes as $superAttributeId => $superAttribute)
-                                        <x-rapidez::select
-                                            v-bind:id="'super_attribute_'+{{ $superAttributeId }}"
-                                            v-model="options[{{ $superAttributeId }}]"
-                                            class="block mx-auto mb-3"
-                                            :label="false"
-                                            required
-                                        >
-                                            <option disabled selected hidden :value="undefined">
-                                                @lang('Select') {{ strtolower($superAttribute->label) }}
-                                            </option>
-                                            @foreach($product[$superAttribute->code] as $superAttribute => $label)
-                                                <option value="{{ $superAttribute }}">{{ $label }}</option>
-                                            @endforeach
-                                        </x-rapidez::select>
-                                    @endforeach
-                                </div>
-                            @endif
+                            <div class="mt-3" v-if="data.amMostviewedBundlePacks.main_product.configurable_options">
+                                <x-rapidez::select
+                                    v-for="superAttribute in data.amMostviewedBundlePacks.main_product.configurable_options"
+                                    v-bind:id="'super_attribute_'+superAttribute.attribute_id_v2"
+                                    v-model="options[superAttribute.attribute_id_v2]"
+                                    class="block mx-auto mb-3"
+                                    :label="false"
+                                    required
+                                >
+                                    <option disabled selected hidden :value="undefined">
+                                        @lang('Select') @{{ superAttribute.label }}
+                                    </option>
+                                    <option
+                                        v-for="value in superAttribute.values"
+                                        :value="value.value_index"
+                                        v-text="value.label"
+                                    />
+                                </x-rapidez::select>
+                            </div>
                         </x-amastyrelatedproducts::productbundle-item>
 
                         <x-amastyrelatedproducts::productbundle-item
