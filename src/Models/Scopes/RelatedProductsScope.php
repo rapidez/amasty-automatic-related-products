@@ -5,7 +5,6 @@ namespace Rapidez\AmastyAutomaticRelatedProducts\Models\Scopes;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
-use Illuminate\Support\Facades\DB;
 
 class RelatedProductsScope implements Scope
 {
@@ -17,7 +16,7 @@ class RelatedProductsScope implements Scope
                     ->where('mainrule.relation', 'where_show')
                     ->where('mainrule.store_id', config('rapidez.store'));
             })
-            ->leftJoin('amasty_mostviewed_product_index as related', function ($join) use ($builder) {
+            ->leftJoin('amasty_mostviewed_product_index as related', function ($join) {
                 $join->on('related.rule_id', '=', 'mainrule.rule_id')
                     ->where('related.relation', 'what_show')
                     ->where('related.store_id', config('rapidez.store'));
