@@ -17,6 +17,7 @@ query bundles ($productId: Int!) {
             ... on ConfigurableProduct {
                 configurable_options {
                     attribute_id_v2
+                    attribute_code
                     label
                     values {
                         value_index
