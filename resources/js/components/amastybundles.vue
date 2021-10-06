@@ -25,6 +25,18 @@
             Object.keys(this.bundle.items).forEach(() => this.selectedProducts.push(true))
         },
 
+        mounted() {
+            this.$root.$on('productSuperAttributeChange', (product) => {
+                if (this.mainProduct.configurable_options) {
+                    let values = {}
+                    this.mainProduct.configurable_options.forEach(function (option) {
+                        values[option.attribute_id_v2] = product[option.attribute_code]
+                    })
+                    this.options = values
+                }
+            })
+        },
+
         methods: {
             async addToCart() {
                 await this.getMask()
