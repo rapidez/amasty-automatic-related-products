@@ -26,7 +26,7 @@
         },
 
         mounted() {
-            this.$root.$on('productSuperAttributeChange', (product) => {
+            this.$root.$on('product-super-attribute-change', (product) => {
                 if (this.mainProduct.configurable_options) {
                     let values = {}
                     this.mainProduct.configurable_options.forEach(function (option) {
