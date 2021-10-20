@@ -3,11 +3,20 @@
     export default {
         mixins: [GetCart],
 
-        props: ['mainProduct', 'bundle'],
+        props: {
+            mainProduct: Object,
+            bundle: Object,
+            addedDuration: {
+                type: Number,
+                default: 3000,
+            }
+        },
 
         data: () => ({
             selectedProducts: [],
-            options: {}
+            options: {},
+            adding: false,
+            added: false,
         }),
 
         render() {
@@ -18,6 +27,9 @@
                 selectedProducts: this.selectedProducts,
                 addToCart: this.addToCart,
                 options: this.options,
+
+                adding: this.adding,
+                added: this.added,
             });
         },
 
@@ -39,39 +51,51 @@
 
         methods: {
             async addToCart() {
+                this.added = false
+                this.adding = true
+
                 await this.getMask()
 
-                Object.entries(this.selectedProducts).forEach(async ([itemIndex, itemChecked]) => {
-                    if (itemChecked) {
-                        let product = this.bundle.items[itemIndex]
-                        await this.magentoCart('post', 'items', {
-                            cartItem: {
-                                sku: product.product.sku,
-                                qty: 1,
-                                quote_id: localStorage.mask
-                            }
-                        })
-                    }
-                })
+                try {
+                    Object.entries(this.selectedProducts).forEach(async ([itemIndex, itemChecked]) => {
+                        if (itemChecked) {
+                            let product = this.bundle.items[itemIndex]
+                            await this.magentoCart('post', 'items', {
+                                cartItem: {
+                                    sku: product.product.sku,
+                                    qty: 1,
+                                    quote_id: localStorage.mask
+                                }
+                            })
+                        }
+                    })
 
-                let response = await this.magentoCart('post', 'items', {
-                    cartItem: {
-                        sku: this.mainProduct.sku,
-                        qty: 1,
-                        quote_id: localStorage.mask,
-                        product_option: this.productOptions
-                    }
-                })
+                    let response = await this.magentoCart('post', 'items', {
+                        cartItem: {
+                            sku: this.mainProduct.sku,
+                            qty: 1,
+                            quote_id: localStorage.mask,
+                            product_option: this.productOptions
+                        }
+                    })
 
-                // Just a workaround to make sure all calculations are triggered.
-                await this.magentoCart('put', 'items/' + response.data.item_id, {
-                    cartItem: {
-                        quote_id: localStorage.mask,
-                        qty: response.data.qty
-                    }
-                })
+                    // Just a workaround to make sure all calculations are triggered.
+                    await this.magentoCart('put', 'items/' + response.data.item_id, {
+                        cartItem: {
+                            quote_id: localStorage.mask,
+                            qty: response.data.qty
+                        }
+                    })
 
-                await this.refreshCart()
+                    await this.refreshCart()
+
+                    this.added = true
+                    setTimeout(() => { this.added = false }, this.addedDuration)
+                } catch (error) {
+                    Notify(error.response.data.message, 'error')
+                }
+
+                this.adding = false
             },
 
             discountMultiplier(percentage) {

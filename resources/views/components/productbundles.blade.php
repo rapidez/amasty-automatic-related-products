@@ -4,7 +4,7 @@
     <div slot-scope="{ data }" v-if="data">
         <div v-for="bundle in data.amMostviewedBundlePacks.items">
             <amastybundles :main-product="data.amMostviewedBundlePacks.main_product" :bundle="bundle">
-                <div class="mb-3" slot-scope="{ bundlePrice, bundleDiscountAmount, selectedProducts, addToCart, options }">
+                <div class="mb-3" slot-scope="{ bundlePrice, bundleDiscountAmount, selectedProducts, addToCart, options, adding, added }">
                     <div class="mb-3 font-bold text-lg">@{{ bundle.block_title }}</div>
                     <form class="flex flex-col sm:flex-row" v-on:submit.prevent="addToCart">
                         <x-amastyrelatedproducts::productbundle-item
@@ -75,8 +75,12 @@
                                 @{{ bundleDiscountAmount | price }}
                             </div>
                             <x-rapidez::button type="submit" class="flex items-center mx-auto mt-3">
-                                <svg v-if="$root.loading" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="spinner" class="w-5 h-5 animate-spin mr-1" role="img" viewBox="0 0 512 512"><path fill="currentColor" d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z"/></svg>
-                                @lang('Add to cart')
+                                <x-heroicon-o-shopping-cart class="h-5 w-5 mr-2" v-if="!adding && !added" />
+                                <x-heroicon-o-refresh class="h-5 w-5 mr-2 animate-spin" v-if="adding" />
+                                <x-heroicon-o-check class="h-5 w-5 mr-2" v-if="added" />
+                                <span v-if="!adding && !added">@lang('Add bundle')</span>
+                                <span v-if="adding">@lang('Adding')...</span>
+                                <span v-if="added">@lang('Added')</span>
                             </x-rapidez::button>
                         </div>
                     </form>
