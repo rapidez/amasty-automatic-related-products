@@ -1,4 +1,4 @@
-@props(['name', 'price', 'firstProduct' => false])
+@props(['name', 'firstProduct' => false])
 
 <div class="contents" {{ $attributes->only('v-for') }}>
     @if(!$firstProduct)
@@ -17,7 +17,7 @@
             {{ $image }}
         </div>
         <div class="text-center my-2">{{ $name }}</div>
-        <div class="font-bold text-center">{{ $price }}</div>
+        <div class="font-bold text-center">@{{ itemPrice(index) }}</div>
 
         {{ $slot }}
     </div>
