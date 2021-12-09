@@ -22,14 +22,19 @@
         render() {
             return this.$scopedSlots.default({
                 bundlePrice: this.bundlePrice,
+                oldBundlePrice: this.oldBundlePrice,
                 bundleDiscountAmount: this.bundleDiscountAmount,
-
                 selectedProducts: this.selectedProducts,
                 addToCart: this.addToCart,
                 options: this.options,
-
                 adding: this.adding,
                 added: this.added,
+                itemDiscount: this.itemDiscount,
+                itemDiscountedPrice: this.itemDiscountedPrice,
+                itemPrice: this.itemPrice,
+                mainProductPrice: this.mainProductPrice,
+                mainProductDiscount: this.mainProductDiscount,
+                mainProductDiscountedPrice: this.mainProductDiscountedPrice
             });
         },
 
@@ -99,13 +104,41 @@
             },
 
             discountMultiplier(percentage) {
-                return (1 - (percentage / 100))
+                return (1 - (percentage / 100).toFixed(2))
+            },
+
+            itemDiscount(index) {
+                if (!this.bundle || this.bundle.items[index].discount_amount <= 0) {
+                    return false
+                }
+
+                return this.bundle.discount_type ? (this.itemPrice(index) / 100 * this.bundle.items[index].discount_amount).toFixed(2) : this.bundle.items[index].discount_amount
+            },
+
+            itemDiscountedPrice(index) {
+                return this.itemDiscount(index) ? this.itemPrice(index) - this.itemDiscount(index) : false
+            },
+
+            itemPrice(index) {
+                return this.bundle.items[index].product.price_range.maximum_price.regular_price.value
             }
         },
 
         computed: {
             mainProductPrice: function () {
-                return parseFloat(this.mainProduct.price_range.maximum_price.regular_price.value)
+                return this.mainProduct.price_range.maximum_price.regular_price.value
+            },
+
+            mainProductDiscount: function () {
+                if (!this.bundle.apply_for_parent) {
+                    return false
+                }
+
+                return this.bundle.discount_type ? (this.mainProductPrice / 100 * this.bundle.discount_amount).toFixed(2) : this.bundle.discount_amount
+            },
+
+            mainProductDiscountedPrice: function () {
+                return this.mainProductDiscount ? this.mainProductPrice - this.mainProductDiscount : false
             },
 
             bundlePrice: function() {
@@ -113,8 +146,7 @@
                 // This options is not available through GraphQL,
                 // until it's implemented by Amasty we use 1.
                 let apply_condition = 1
-                let conditionsAreNotMet = apply_condition
-                    && this.selectedProducts.length != Object.values(this.selectedProducts).filter(Boolean).length
+                let conditionsAreNotMet = apply_condition && this.selectedProducts.length < 1
 
                 if (!Object.values(this.selectedProducts).filter(Boolean).length) {
                     return this.mainProductPrice
@@ -123,23 +155,24 @@
                 if (!this.bundle.apply_for_parent || conditionsAreNotMet) {
                     price += this.mainProductPrice
                 } else {
-                    price += this.bundle.discount_type
-                        ? this.mainProductPrice * this.discountMultiplier(this.bundle.discount_amount)
-                        : this.mainProductPrice - this.bundle.discount_amount
+                    price += this.mainProductDiscountedPrice
                 }
 
                 Object.entries(this.selectedProducts).forEach(([itemKey, itemSelected]) => {
                     if (itemSelected) {
-                        let productPrice = this.bundle.items[itemKey].product.price_range.maximum_price.regular_price.value
-                        let itemDiscount = this.bundle.items[itemKey].discount_amount ?? this.bundle.discount_amount
+                        price += conditionsAreNotMet ? this.itemPrice(itemKey) : this.itemDiscountedPrice(itemKey)
+                    }
+                })
 
-                        if (conditionsAreNotMet) {
-                            price += productPrice
-                        } else {
-                            price += this.bundle.discount_type
-                                ? productPrice * this.discountMultiplier(itemDiscount)
-                                : productPrice - itemDiscount
-                        }
+                return price
+            },
+
+            oldBundlePrice: function() {
+                let price = this.mainProductPrice
+
+                Object.entries(this.selectedProducts).forEach(([itemKey, itemSelected]) => {
+                    if (itemSelected) {
+                        price += this.itemPrice(itemKey)
                     }
                 })
 
@@ -147,17 +180,7 @@
             },
 
             bundleDiscountAmount: function() {
-                let productPricesSummed = this.mainProductPrice
-
-                Object.entries(this.selectedProducts).forEach(([itemKey, itemSelected]) => {
-                    if (itemSelected) {
-                        let productPrice = this.bundle.items[itemKey].product.price_range.maximum_price.regular_price.value
-
-                        productPricesSummed += productPrice
-                    }
-                })
-
-                return Math.abs(this.bundlePrice - productPricesSummed)
+                return this.oldBundlePrice > this.bundlePrice ? this.oldBundlePrice - this.bundlePrice : false
             },
 
             productOptions: function () {

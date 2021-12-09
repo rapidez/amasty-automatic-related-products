@@ -4,12 +4,11 @@
     <div slot-scope="{ data }" v-if="data">
         <div v-for="bundle in data.amMostviewedBundlePacks.items">
             <amastybundles :main-product="data.amMostviewedBundlePacks.main_product" :bundle="bundle">
-                <div class="mb-3" slot-scope="{ bundlePrice, bundleDiscountAmount, selectedProducts, addToCart, options, adding, added }">
+                <div class="mb-3" slot-scope="{ bundlePrice, bundleDiscountAmount, selectedProducts, addToCart, options, adding, added, itemPrice }">
                     <div class="mb-3 font-bold text-lg">@{{ bundle.block_title }}</div>
                     <form class="flex flex-col sm:flex-row" v-on:submit.prevent="addToCart">
                         <x-amastyrelatedproducts::productbundle-item
                             :name="'@{{ data.amMostviewedBundlePacks.main_product.name }}'"
-                            :price="'@{{ data.amMostviewedBundlePacks.main_product.price_range.maximum_price.regular_price.value | price }}'"
                             :firstProduct="true"
                         >
                             <x-slot name="image">
@@ -46,7 +45,6 @@
 
                         <x-amastyrelatedproducts::productbundle-item
                             :name="'@{{ item.product.name }}'"
-                            :price="'@{{ item.product.price_range.maximum_price.regular_price.value | price }}'"
                             v-for="(item, index) in bundle.items"
                             :firstProduct="false"
                         >
