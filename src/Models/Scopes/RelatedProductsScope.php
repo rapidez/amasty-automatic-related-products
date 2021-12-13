@@ -14,12 +14,14 @@ class RelatedProductsScope implements Scope
             ->leftJoin('amasty_mostviewed_product_index as mainrule', function ($join) use ($builder) {
                 $join->on('mainrule.entity_id', '=', $builder->getQuery()->from.'.entity_id')
                     ->where('mainrule.relation', 'where_show')
+                    ->where('mainrule.position', 'product_into_related')
                     ->where('mainrule.store_id', config('rapidez.store'));
             })
             ->leftJoin('amasty_mostviewed_group', 'mainrule.rule_id', '=', 'amasty_mostviewed_group.group_id')
             ->leftJoin('amasty_mostviewed_product_index as related', function ($join) {
                 $join->on('related.rule_id', '=', 'mainrule.rule_id')
                     ->where('related.relation', 'what_show')
+                    ->where('related.position', 'product_into_related')
                     ->where('related.store_id', config('rapidez.store'));
             })
             ->leftJoin('cataloginventory_stock_item as related_stock', 'related_stock.product_id', '=', 'related.entity_id')
