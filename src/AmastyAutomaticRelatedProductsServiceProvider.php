@@ -3,8 +3,8 @@
 namespace Rapidez\AmastyAutomaticRelatedProducts;
 
 use Illuminate\Support\ServiceProvider;
-use Rapidez\AmastyAutomaticRelatedProducts\Models\Scopes\RelatedProductsScope;
 use Rapidez\AmastyAutomaticRelatedProducts\Models\Scopes\CrossselProductsScope;
+use Rapidez\AmastyAutomaticRelatedProducts\Models\Scopes\RelatedProductsScope;
 use Rapidez\Core\Casts\CommaSeparatedToArray;
 use TorMorten\Eventy\Facades\Eventy;
 
