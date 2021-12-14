@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
 
-class RelatedQuoteScope implements Scope
+class CrossselProductsScope implements Scope
 {
     public function apply(Builder $builder, Model $model): void
     {
-        $builder->selectRaw('GROUP_CONCAT(DISTINCT related.entity_id) as amasty_cross_sells')
+        $builder->selectRaw('GROUP_CONCAT(DISTINCT related.entity_id) as amasty_crosssell_ids')
             ->leftJoin('quote_item as item', function ($join) {
                 $join->on('item.quote_id', '=', 'quote.entity_id')->whereNull('item.parent_item_id');
             })
