@@ -34,7 +34,7 @@ This module has 2 Blade components for each related product rules and product bu
 
 ### Bundles
 ```
-<x-amastyrelatedproducts::productbundles :product="$product" />
+<x-amastyrelatedproducts::productbundles :product="$productId" />
 ```
 
 ## TODO
