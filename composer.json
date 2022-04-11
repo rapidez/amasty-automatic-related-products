@@ -19,7 +19,8 @@
         }
     ],
     "require": {
-        "php": "^7.4|^8.0"
+        "php": "^8.0|^8.1",
+        "rapidez/core": "~0.54"
     },
     "autoload": {
         "psr-4": {
