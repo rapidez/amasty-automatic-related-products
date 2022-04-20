@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased](https://github.com/org/repo/compare/0.7.0...master)
+## [Unreleased](https://github.com/org/repo/compare/0.7.1...master)
+
+## [0.7.1](https://github.com/org/repo/compare/0.7.0...0.7.1) - 2022-04-20
+
+### Fixed
+
+- Use the changed CommaSeparatedToIntegerArray cast (47c0e22)
 
 ## [0.7.0](https://github.com/org/repo/compare/0.6.1...0.7.0) - 2022-04-11
 
