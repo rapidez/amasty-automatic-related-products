@@ -1,6 +1,6 @@
 @props(['productId'])
 
-<graphql v-cloak query="@include('amastyrelatedproducts::queries.bundles')" :variables="{ productId: {{ $productId }} }">
+<graphql v-cloak query="@include('amastyrelatedproducts::queries.bundles')" :variables="{ uid: '{{ base64_encode($productId) }}' }">
     <div slot-scope="{ data }" v-if="data">
         <div v-for="bundle in data.amMostviewedBundlePacks.items">
             <amastybundles :main-product="data.amMostviewedBundlePacks.main_product" :bundle="bundle">
