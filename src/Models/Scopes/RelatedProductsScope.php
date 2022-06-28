@@ -25,7 +25,7 @@ class RelatedProductsScope implements Scope
                 ->where('mainrule.entity_id', '=', $builder->getQuery()->from.'.entity_id')
                 ->where('mainrule.relation', 'where_show')
                 ->whereIn('mainrule.position', ['product_into_related', 'product_into_upsell'])
-                ->where('mainrule.store_id', config('rapidez.store'))
+                ->where('mainrule.store_id', config('rapidez.store')),
         ]);
     }
 }
