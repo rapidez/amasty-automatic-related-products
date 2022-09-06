@@ -1,5 +1,5 @@
-query bundles ($productId: Int!) {
-    amMostviewedBundlePacks (productId: $productId) {
+query bundles ($uid: String!) {
+    amMostviewedBundlePacks (uid: $uid) {
         main_product {
             sku
             name
