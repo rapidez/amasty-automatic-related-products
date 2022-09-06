@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased](https://github.com/org/repo/compare/0.7.2...master)
+## [Unreleased](https://github.com/org/repo/compare/1.0.0...master)
+
+## [1.0.0](https://github.com/org/repo/compare/0.7.2...1.0.0) - 2022-09-06
+
+### Changed
+
+- `amasty/customers-also-viewed-graphql` 2.0.0 compatibility (#12)
 
 ## [0.7.2](https://github.com/org/repo/compare/0.7.1...0.7.2) - 2022-06-28
 
