@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased](https://github.com/org/repo/compare/1.0.0...master)
+## [Unreleased](https://github.com/org/repo/compare/1.0.1...master)
+
+## [1.0.1](https://github.com/org/repo/compare/1.0.0...1.0.1) - 2022-09-29
+
+### Fixed
+
+- Make use of whereColumn to fix related products query (#13)
 
 ## [1.0.0](https://github.com/org/repo/compare/0.7.2...1.0.0) - 2022-09-06
 
