@@ -22,7 +22,7 @@ class RelatedProductsScope implements Scope
                         ->where('related.store_id', config('rapidez.store'));
                 })
                 ->leftJoin('cataloginventory_stock_item as related_stock', 'related_stock.product_id', '=', 'related.entity_id')
-                ->where('mainrule.entity_id', '=', $builder->getQuery()->from.'.entity_id')
+                ->whereColumn('mainrule.entity_id', $builder->getQuery()->from.'.entity_id')
                 ->where('mainrule.relation', 'where_show')
                 ->whereIn('mainrule.position', ['product_into_related', 'product_into_upsell'])
                 ->where('mainrule.store_id', config('rapidez.store')),
