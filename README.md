@@ -18,11 +18,6 @@ You can publish the views of this module with:
 php artisan vendor:publish --provider="Rapidez\AmastyAutomaticRelatedProducts\AmastyAutomaticRelatedProductsServiceProvider" --tag=views
 ```
 
-Make sure this exists in your `app.js`:
-```js
-import.meta.glob(['Vendor/rapidez/*/resources/js/app.js'], { eager: true });
-```
-
 ## Usage
 
 This module has 2 Blade components for each related product rules and product bundles. You can include them in `resources/views/vendor/rapidez/product/overview.blade.php`
