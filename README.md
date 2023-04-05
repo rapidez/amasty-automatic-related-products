@@ -4,23 +4,18 @@ This plugin requires the [Amasty Automatic Related Products](https://amasty.com/
 
 ## Installation
 
-```
+```bash
 composer require rapidez/amasty-automatic-related-products
 ```
 
 If you haven't published the Rapidez views yet, you can publish them with:
-```
+```bash
 php artisan vendor:publish --provider="Rapidez\Core\RapidezServiceProvider" --tag=views
 ```
 
 You can publish the views of this module with:
-```
+```bash
 php artisan vendor:publish --provider="Rapidez\AmastyAutomaticRelatedProducts\AmastyAutomaticRelatedProductsServiceProvider" --tag=views
-```
-
-Add this Vue component to your `app.js`.
-```
-Vue.component('amastybundles', require('Vendor/rapidez/amasty-automatic-related-products/resources/js/components/amastybundles.vue').default)
 ```
 
 ## Usage
