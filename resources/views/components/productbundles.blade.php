@@ -72,14 +72,14 @@
                                 @lang('You\'re saving')
                                 @{{ bundleDiscountAmount | price }}
                             </div>
-                            <x-rapidez::button type="submit" class="flex items-center mx-auto mt-3">
+                            <x-rapidez::button.primary type="submit" class="flex items-center mx-auto mt-3">
                                 <x-heroicon-o-shopping-cart class="h-5 w-5 mr-2" v-if="!adding && !added" />
                                 <x-heroicon-o-refresh class="h-5 w-5 mr-2 animate-spin" v-if="adding" />
                                 <x-heroicon-o-check class="h-5 w-5 mr-2" v-if="added" />
                                 <span v-if="!adding && !added">@lang('Add bundle')</span>
                                 <span v-if="adding">@lang('Adding')...</span>
                                 <span v-if="added">@lang('Added')</span>
-                            </x-rapidez::button>
+                            </x-rapidez::button.primary>
                         </div>
                     </form>
                 </div>
