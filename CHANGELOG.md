@@ -7,6 +7,12 @@
 
 - Support Rapidez 1.x (361c87f)
 
+## [1.1.1](https://github.com/rapidez/amasty-automatic-related-products/releases/tag/1.1.1) - 2023-09-25
+
+### Added
+
+- Support Rapidez 1.x (bda4ef4)
+
 ## [1.2.0](https://github.com/rapidez/amasty-automatic-related-products/releases/tag/1.2.0) - 2023-08-04
 
 ### Changed
