@@ -1,8 +1,7 @@
 <script>
-    import GetCart from 'Vendor/rapidez/core/resources/js/components/Cart/mixins/GetCart.js'
-    export default {
-        mixins: [GetCart],
+    import { mask, refreshMask } from 'Vendor/rapidez/core/resources/js/stores/useMask'
 
+    export default {
         props: {
             mainProduct: Object,
             bundle: Object,
@@ -59,7 +58,9 @@
                 this.added = false
                 this.adding = true
 
-                await this.getMask()
+                if (!mask.value) {
+                    await refreshMask()
+                }
 
                 try {
                     Object.entries(this.selectedProducts).forEach(async ([itemIndex, itemChecked]) => {
@@ -69,7 +70,7 @@
                                 cartItem: {
                                     sku: product.product.sku,
                                     qty: 1,
-                                    quote_id: localStorage.mask
+                                    quote_id: mask.value
                                 }
                             })
                         }
@@ -79,7 +80,7 @@
                         cartItem: {
                             sku: this.mainProduct.sku,
                             qty: 1,
-                            quote_id: localStorage.mask,
+                            quote_id: mask.value,
                             product_option: this.productOptions
                         }
                     })
@@ -87,7 +88,7 @@
                     // Just a workaround to make sure all calculations are triggered.
                     await this.magentoCart('put', 'items/' + response.data.item_id, {
                         cartItem: {
-                            quote_id: localStorage.mask,
+                            quote_id: mask.value,
                             qty: response.data.qty
                         }
                     })
