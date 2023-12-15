@@ -61,44 +61,49 @@
                 if (!mask.value) {
                     await refreshMask()
                 }
-
+                let productsToAdd = Object.entries(this.selectedProducts).filter(([itemIndex, itemChecked]) => itemChecked);
                 try {
-                    Object.entries(this.selectedProducts).forEach(async ([itemIndex, itemChecked]) => {
-                        if (itemChecked) {
-                            let product = this.bundle.items[itemIndex]
-                            await this.magentoCart('post', 'items', {
-                                cartItem: {
-                                    sku: product.product.sku,
-                                    qty: 1,
-                                    quote_id: mask.value
-                                }
-                            })
-                        }
+                    productsToAdd = productsToAdd.map(([itemIndex, itemChecked]) => {
+                        let product = this.bundle.items[itemIndex]
+                        return {
+                            sku: product.product.sku,
+                            quantity: 1,
+                        };
                     })
 
-                    let response = await this.magentoCart('post', 'items', {
-                        cartItem: {
-                            sku: this.mainProduct.sku,
-                            qty: 1,
-                            quote_id: mask.value,
-                            product_option: this.productOptions
-                        }
+                    productsToAdd.push({
+                        sku: this.mainProduct.sku,
+                        quantity: 1,
+                        selected_options: this.selectedOptions
+                    });
+
+                    const response = await window.magentoGraphQL(
+                        `mutation (
+                            $cartId: String!,
+                            $cartItems: [CartItemInput!]!
+                        ) { addProductsToCart(cartId: $cartId, cartItems: $cartItems) { cart { ` +
+                            config.queries.cart +
+                            ` } user_errors { code message } } }`,
+                        {
+                            cartId: mask.value,
+                            cartItems: productsToAdd,
+                        },
+                    ).then(async (response) => {
+                        await this.updateCart({}, response)
+
+                        return response;
                     })
 
-                    // Just a workaround to make sure all calculations are triggered.
-                    await this.magentoCart('put', 'items/' + response.data.item_id, {
-                        cartItem: {
-                            quote_id: mask.value,
-                            qty: response.data.qty
-                        }
-                    })
-
-                    await this.refreshCart()
+                    if (response.data.addProductsToCart.user_errors.length) {
+                        throw new Error(response.data.addProductsToCart.user_errors[0].message)
+                    }
 
                     this.added = true
                     setTimeout(() => { this.added = false }, this.addedDuration)
                 } catch (error) {
-                    Notify(error.response.data.message, 'error')
+                    error?.response && (await this.checkResponseForExpiredCart(error.response))
+
+                    Notify(error?.response?.data?.message || error.message, 'error')
                 }
 
                 this.adding = false
@@ -121,6 +126,10 @@
             },
 
             itemPrice(index) {
+                if (!index) {
+                    return
+                }
+
                 return this.bundle.items[index].product.price_range.maximum_price.regular_price.value
             }
         },
@@ -184,21 +193,8 @@
                 return this.oldBundlePrice > this.bundlePrice ? this.oldBundlePrice - this.bundlePrice : false
             },
 
-            productOptions: function () {
-                let options = []
-
-                Object.entries(this.options).forEach(([key, val]) => {
-                    options.push({
-                        option_id: key,
-                        option_value: val,
-                    })
-                })
-
-                return {
-                    extension_attributes: {
-                        configurable_item_options: options
-                    }
-                }
+            selectedOptions: function () {
+                return Object.entries(this.options).map(([optionId, optionValue]) => btoa('custom-option/' + optionId + '/' + optionValue))
             }
         }
     }
