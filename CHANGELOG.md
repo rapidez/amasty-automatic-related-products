@@ -1,6 +1,12 @@
 # Changelog 
 
-[Unreleased changes](https://github.com/rapidez/amasty-automatic-related-products/compare/1.2.1...master)
+[Unreleased changes](https://github.com/rapidez/amasty-automatic-related-products/compare/2.0.0...master)
+## [2.0.0](https://github.com/rapidez/amasty-automatic-related-products/releases/tag/2.0.0) - 2024-02-21
+
+### Added
+
+- Rapidez v2 compatibility (#17)
+
 ## [1.2.1](https://github.com/rapidez/amasty-automatic-related-products/releases/tag/1.2.1) - 2023-09-25
 
 ### Added
