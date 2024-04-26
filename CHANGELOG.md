@@ -1,6 +1,12 @@
 # Changelog 
 
-[Unreleased changes](https://github.com/rapidez/amasty-automatic-related-products/compare/2.0.0...master)
+[Unreleased changes](https://github.com/rapidez/amasty-automatic-related-products/compare/2.0.1...master)
+## [2.0.1](https://github.com/rapidez/amasty-automatic-related-products/releases/tag/2.0.1) - 2024-04-26
+
+### Fixed
+
+- Use entity_id (#18)
+
 ## [2.0.0](https://github.com/rapidez/amasty-automatic-related-products/releases/tag/2.0.0) - 2024-02-21
 
 ### Added
