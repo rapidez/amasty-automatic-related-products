@@ -126,7 +126,7 @@
             },
 
             itemPrice(index) {
-                if (!index) {
+                if (!this.bundle.items[index]) {
                     return
                 }
 

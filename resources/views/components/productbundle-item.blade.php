@@ -17,8 +17,11 @@
             {{ $image }}
         </div>
         <div class="text-center my-2">{{ $name }}</div>
-        <div class="font-bold text-center">@{{ itemPrice(index) }}</div>
-
+        @if($firstProduct)
+            <div class="font-bold text-center">@{{ mainProductPrice | price }}</div>
+        @else
+            <div class="font-bold text-center">@{{ itemPrice(index) | price }}</div>
+        @endif
         {{ $slot }}
     </div>
 </div>

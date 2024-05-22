@@ -4,7 +4,7 @@
     <div slot-scope="{ data }" v-if="data">
         <div v-for="bundle in data.amMostviewedBundlePacks.items">
             <amastybundles :main-product="data.amMostviewedBundlePacks.main_product" :bundle="bundle">
-                <div class="mb-3" slot-scope="{ bundlePrice, bundleDiscountAmount, selectedProducts, addToCart, options, adding, added, itemPrice }">
+                <div class="mb-3" slot-scope="{ bundlePrice, bundleDiscountAmount, selectedProducts, mainProductPrice, addToCart, options, adding, added, itemPrice }">
                     <div class="mb-3 font-bold text-lg">@{{ bundle.block_title }}</div>
                     <form class="flex flex-col sm:flex-row" v-on:submit.prevent="addToCart">
                         <x-amastyrelatedproducts::productbundle-item
