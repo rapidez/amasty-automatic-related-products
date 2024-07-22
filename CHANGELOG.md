@@ -1,6 +1,12 @@
 # Changelog 
 
-[Unreleased changes](https://github.com/rapidez/amasty-automatic-related-products/compare/2.0.1...master)
+[Unreleased changes](https://github.com/rapidez/amasty-automatic-related-products/compare/2.0.2...master)
+## [2.0.2](https://github.com/rapidez/amasty-automatic-related-products/releases/tag/2.0.2) - 2024-05-22
+
+### Fixed
+
+- Display right prices (#19)
+
 ## [2.0.1](https://github.com/rapidez/amasty-automatic-related-products/releases/tag/2.0.1) - 2024-04-26
 
 ### Fixed
