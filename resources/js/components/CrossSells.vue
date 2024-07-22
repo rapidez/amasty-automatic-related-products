@@ -10,12 +10,12 @@ export default {
 
     async mounted() {
         this.amastyIds = await rapidezAPI('post', 'cart/cross-sells', {
-            ids: this.cartIds
+            ids: this.productIds
         })
     },
 
     computed: {
-        cartIds() {
+        productIds() {
             return this.$root.cart.items.map((item) => item.product.id)
         }
     }
