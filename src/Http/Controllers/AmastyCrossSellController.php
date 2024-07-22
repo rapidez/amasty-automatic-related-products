@@ -2,7 +2,6 @@
 
 namespace Rapidez\AmastyAutomaticRelatedProducts\Http\Controllers;
 
-
 use Illuminate\Http\Request;
 use Rapidez\AmastyAutomaticRelatedProducts\Models\AmastyCrossSells;
 

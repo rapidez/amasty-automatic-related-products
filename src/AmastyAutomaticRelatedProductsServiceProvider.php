@@ -19,7 +19,7 @@ class AmastyAutomaticRelatedProductsServiceProvider extends ServiceProvider
 
     public function bootRoutes(): self
     {
-        $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
+        $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
 
         return $this;
     }
