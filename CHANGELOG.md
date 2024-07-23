@@ -1,6 +1,13 @@
 # Changelog 
 
-[Unreleased changes](https://github.com/rapidez/amasty-automatic-related-products/compare/2.0.2...master)
+[Unreleased changes](https://github.com/rapidez/amasty-automatic-related-products/compare/2.1.0...master)
+## [2.1.0](https://github.com/rapidez/amasty-automatic-related-products/releases/tag/2.1.0) - 2024-07-22
+
+### Added
+
+- V2 Cross-sells (#20)
+
+
 ## [2.0.2](https://github.com/rapidez/amasty-automatic-related-products/releases/tag/2.0.2) - 2024-05-22
 
 ### Fixed
