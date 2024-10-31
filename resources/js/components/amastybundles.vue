@@ -101,9 +101,10 @@
                     this.added = true
                     setTimeout(() => { this.added = false }, this.addedDuration)
                 } catch (error) {
-                    error?.response && (await this.checkResponseForExpiredCart(error.response))
+                    const responseData = await error?.response?.json()
+                    responseData && (await this.checkResponseForExpiredCart({}, responseData))
 
-                    Notify(error?.response?.data?.message || error.message, 'error')
+                    Notify(responseData?.data?.message || error.message, 'error')
                 }
 
                 this.adding = false
