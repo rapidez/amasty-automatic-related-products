@@ -5,7 +5,7 @@
         "rapidez"
     ],
     "homepage": "https://rapidez.io",
-    "license": "GPL-3.0",
+    "license": "GPL-3.0-or-later",
     "authors": [
         {
             "name": "Bob Wezelman",
@@ -20,7 +20,7 @@
     ],
     "require": {
         "php": "^8.0|^8.1",
-        "rapidez/core": "^2.11",
+        "rapidez/core": "^2.11|^3.0",
         "blade-ui-kit/blade-heroicons": "^2.0"
     },
     "autoload": {
