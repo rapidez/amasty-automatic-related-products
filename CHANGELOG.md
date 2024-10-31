@@ -1,6 +1,16 @@
 # Changelog 
 
-[Unreleased changes](https://github.com/rapidez/amasty-automatic-related-products/compare/2.1.0...master)
+[Unreleased changes](https://github.com/rapidez/amasty-automatic-related-products/compare/2.2.0...2.2.0)
+## [2.2.0](https://github.com/rapidez/amasty-automatic-related-products/releases/tag/2.2.0) - 2024-10-31
+
+### Added
+
+- Rapidez v3 compatibility (154845f)
+
+### Fixed
+
+- Update checkResponse to comply with the new format (#21)
+
 ## [2.1.0](https://github.com/rapidez/amasty-automatic-related-products/releases/tag/2.1.0) - 2024-07-22
 
 ### Added
