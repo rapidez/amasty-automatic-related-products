@@ -7,7 +7,7 @@ use Rapidez\AmastyAutomaticRelatedProducts\Models\AmastyCrossSells;
 
 class AmastyCrossSellController
 {
-    public function __invoke(Request $request): array|null
+    public function __invoke(Request $request): ?array
     {
         $crossSellIds = AmastyCrossSells::whereIn('amasty_mostviewed_product_index.entity_id', $request->ids)
             ->pluck('amasty_related_ids')
