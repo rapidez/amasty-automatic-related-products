@@ -23,7 +23,7 @@
                             </x-slot>
 
                             <div class="mt-3" v-if="data.amMostviewedBundlePacks.main_product.configurable_options">
-                                <x-rapidez::select
+                                <x-rapidez::input.select
                                     v-for="superAttribute in data.amMostviewedBundlePacks.main_product.configurable_options"
                                     v-bind:id="'super_attribute_'+superAttribute.attribute_id_v2"
                                     v-model="options[superAttribute.attribute_id_v2]"
@@ -39,7 +39,7 @@
                                         :value="value.value_index"
                                         v-text="value.label"
                                     />
-                                </x-rapidez::select>
+                                </x-rapidez::input.select>
                             </div>
                         </x-amastyrelatedproducts::productbundle-item>
 
