@@ -1,6 +1,12 @@
 # Changelog 
 
-[Unreleased changes](https://github.com/rapidez/amasty-automatic-related-products/compare/2.2.0...2.2.0)
+[Unreleased changes](https://github.com/rapidez/amasty-automatic-related-products/compare/4.0.0...4.0.0)
+## [4.0.0](https://github.com/rapidez/amasty-automatic-related-products/releases/tag/4.0.0) - 2025-09-18
+
+### Added
+
+- Rapidez v4 support (#22)
+
 ## [2.2.0](https://github.com/rapidez/amasty-automatic-related-products/releases/tag/2.2.0) - 2024-10-31
 
 ### Added
