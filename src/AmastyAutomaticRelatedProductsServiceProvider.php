@@ -34,10 +34,10 @@ class AmastyAutomaticRelatedProductsServiceProvider extends ServiceProvider
                 ->where('store_id', config('rapidez.store'));
         });
 
-        Product::macro('amastyRelatedIds', function(): Collection {
+        Product::macro('amastyRelatedIds', function (): Collection {
             return $this
                 ->relationRules
-                ->flatMap(fn(Rule $rule) => $rule->combined->pluck('entity_id'));
+                ->flatMap(fn (Rule $rule) => $rule->combined->pluck('entity_id'));
         });
 
         return $this;

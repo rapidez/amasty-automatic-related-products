@@ -37,8 +37,8 @@ class Rule extends Model
     {
         return $this->indexed()
             ->where('relation', 'what_show')
-            ->where(fn($query) =>
-                $query->where('position', 'product_into_upsell')
+            ->where(
+                fn ($query) => $query->where('position', 'product_into_upsell')
                     ->orWhere('position', 'product_into_related')
             );
     }
