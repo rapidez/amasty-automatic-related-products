@@ -24,7 +24,7 @@ This module has 2 Blade components for each related product rules and product bu
 
 ### Related products
 ```
-<x-amastyrelatedproducts::relatedproducts :related_ids="$product->amasty_related_ids" />
+<x-amastyrelatedproducts::relatedproducts :related_ids="$product->amastyRelatedIds()" />
 ```
 
 ### Bundles
@@ -37,6 +37,7 @@ This module has 2 Blade components for each related product rules and product bu
 - Notifications
 - Bundles with configurable products
 - Use the `apply_condition` option when it's available through GraphQL
+- Listen to `sorting`, `max_products`, and `show_out_of_stock` attributes
 
 ## License
 

@@ -2,10 +2,11 @@
 
 namespace Rapidez\AmastyAutomaticRelatedProducts;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
-use Rapidez\AmastyAutomaticRelatedProducts\Models\Scopes\RelatedProductsScope;
-use Rapidez\Core\Casts\CommaSeparatedToIntegerArray;
-use TorMorten\Eventy\Facades\Eventy;
+use Rapidez\AmastyAutomaticRelatedProducts\Models\Related;
+use Rapidez\AmastyAutomaticRelatedProducts\Models\Rule;
+use Rapidez\Core\Models\Product;
 
 class AmastyAutomaticRelatedProductsServiceProvider extends ServiceProvider
 {
@@ -26,10 +27,18 @@ class AmastyAutomaticRelatedProductsServiceProvider extends ServiceProvider
 
     public function addScopes(): self
     {
-        Eventy::addFilter('productpage.scopes', fn ($scopes) => array_merge($scopes ?: [], [RelatedProductsScope::class]));
-        Eventy::addFilter('product.casts', fn ($casts) => array_merge($casts ?: [], [
-            'amasty_related_ids' => CommaSeparatedToIntegerArray::class,
-        ]));
+        Product::resolveRelationUsing('relationRules', function (Product $product) {
+            return $product
+                ->hasManyThrough(Rule::class, Related::class, 'entity_id', 'group_id', null, 'rule_id')
+                ->where('relation', 'where_show')
+                ->where('store_id', config('rapidez.store'));
+        });
+
+        Product::macro('amastyRelatedIds', function(): Collection {
+            return $this
+                ->relationRules
+                ->flatMap(fn(Rule $rule) => $rule->combined->pluck('entity_id'));
+        });
 
         return $this;
     }
