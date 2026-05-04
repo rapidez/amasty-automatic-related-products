@@ -1,7 +1,9 @@
 <script>
+import { cart } from 'Vendor/rapidez/core/resources/js/stores/useCart.js'
+
 export default {
     render() {
-        return this.$scopedSlots.default(this)
+        return this?.$slots?.default(this)
     },
 
     data: () => ({
@@ -16,7 +18,7 @@ export default {
 
     computed: {
         productIds() {
-            return this.$root.cart.items.map((item) => item.product.id)
+            return (cart.value?.items || []).map((item) => item.product.id)
         }
     }
 }
