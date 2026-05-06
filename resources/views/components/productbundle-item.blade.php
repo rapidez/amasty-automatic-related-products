@@ -18,9 +18,9 @@
         </div>
         <div class="text-center my-2">{{ $name }}</div>
         @if($firstProduct)
-            <div class="font-bold text-center">@{{ mainProductPrice | price }}</div>
+            <div class="font-bold text-center">@{{ window.price(mainProductPrice) }}</div>
         @else
-            <div class="font-bold text-center">@{{ itemPrice(index) | price }}</div>
+            <div class="font-bold text-center">@{{ window.price(itemPrice(index)) }}</div>
         @endif
         {{ $slot }}
     </div>

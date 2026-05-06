@@ -1,10 +1,10 @@
 @props(['productId'])
 
-<graphql v-cloak query="@include('amastyrelatedproducts::queries.bundles')" :variables='{ uid: "{{ base64_encode($productId) }}" }'>
-    <div slot-scope="{ data }" v-if="data">
+<graphql v-cloak query="@include('amastyrelatedproducts::queries.bundles')" :variables='{ uid: "{{ base64_encode($productId) }}" }' v-slot="{ data }">
+    <div v-if="data">
         <div v-for="bundle in data.amMostviewedBundlePacks.items">
-            <amastybundles :main-product="data.amMostviewedBundlePacks.main_product" :bundle="bundle">
-                <div class="mb-3" slot-scope="{ bundlePrice, bundleDiscountAmount, selectedProducts, mainProductPrice, addToCart, options, adding, added, itemPrice }">
+            <amastybundles :main-product="data.amMostviewedBundlePacks.main_product" :bundle="bundle" v-slot="{ bundlePrice, bundleDiscountAmount, selectedProducts, mainProductPrice, addToCart, options, adding, added, itemPrice }">
+                <div class="mb-3">
                     <div class="mb-3 font-bold text-lg">@{{ bundle.block_title }}</div>
                     <form class="flex flex-col sm:flex-row" v-on:submit.prevent="addToCart">
                         <x-amastyrelatedproducts::productbundle-item
@@ -66,11 +66,11 @@
 
                         <div class="sm:w-64 text-center">
                             <div class="font-extrabold text-2xl mb-3 sm:mt-16">
-                                @{{ bundlePrice | price }}
+                                @{{ window.price(bundlePrice) }}
                             </div>
                             <div class="text-gray-700" v-if="bundleDiscountAmount">
                                 @lang('You\'re saving')
-                                @{{ bundleDiscountAmount | price }}
+                                @{{ window.price(bundleDiscountAmount) }}
                             </div>
                             <x-rapidez::button type="submit" class="flex items-center mx-auto mt-3" v-bind:disabled="adding">
                                 <x-heroicon-o-shopping-cart class="h-5 w-5 mr-2" v-if="!adding && !added" />

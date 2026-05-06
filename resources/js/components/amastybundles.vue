@@ -19,7 +19,7 @@
         }),
 
         render() {
-            return this.$scopedSlots.default({
+            return this?.$slots?.default({
                 bundlePrice: this.bundlePrice,
                 oldBundlePrice: this.oldBundlePrice,
                 bundleDiscountAmount: this.bundleDiscountAmount,
@@ -42,7 +42,7 @@
         },
 
         mounted() {
-            this.$root.$on('product-super-attribute-change', (product) => {
+            window.$on('product-super-attribute-change', (product) => {
                 if (this.mainProduct.configurable_options) {
                     let values = {}
                     this.mainProduct.configurable_options.forEach(function (option) {
