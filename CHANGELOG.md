@@ -1,6 +1,12 @@
 # Changelog 
 
-[Unreleased changes](https://github.com/rapidez/amasty-automatic-related-products/compare/5.0.0...5.0.0)
+[Unreleased changes](https://github.com/rapidez/amasty-automatic-related-products/compare/5.0.1...5.0.1)
+## [5.0.1](https://github.com/rapidez/amasty-automatic-related-products/releases/tag/5.0.1) - 2026-05-06
+
+### Fixed
+
+- Rapidez v5 support (#24)
+
 ## [5.0.0](https://github.com/rapidez/amasty-automatic-related-products/releases/tag/5.0.0) - 2026-01-14
 
 ### Added
