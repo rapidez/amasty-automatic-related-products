@@ -19,7 +19,7 @@
                                     :alt="data.amMostviewedBundlePacks.main_product.name"
                                     loading="lazy"
                                 />
-                                <x-rapidez::no-image v-else class="h-40"/>
+                                <x-rapidez::no-image v-else="" class="h-40"/>
                             </x-slot>
 
                             <div class="mt-3" v-if="data.amMostviewedBundlePacks.main_product.configurable_options">
